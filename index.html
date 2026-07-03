@@ -1,0 +1,1439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Interactive Open Standards (Conservation Standards v5) results chain for ZSL Thailand's Darwin Initiative human-elephant coexistence programme in Kanchanaburi, Thailand. Causal-path tracing, guided theory-of-change tour, and situation model.">
+<title>Human-elephant coexistence results chain: ZSL Thailand, Kanchanaburi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --paper:#FFFFFF; --paper2:#F5F7F8; --panel:#FFFFFF; --ink:#14161B; --muted:#565C64; --faint:#868D96;
+    --hair:#E4E7EA; --hair2:#C7CCD2; --focus:#0E7C52;
+
+    --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+
+    /* One strong interactive/brand accent (emerald) + supporting tints */
+    --accent:#0E7C52; --accent-ink:#0A5B3C; --accent-tint:#E4F1EA;
+
+    /* Element-type palette — one categorical hue per Open Standards element, tuned dark for AA on white */
+    --strategy-b:#A15C00; --strategy-f:#F7ECD9; --strategy-t:#764400;   /* action (v4 strategy): bronze/amber hexagon */
+    --output-b:#4B5563;   --output-f:#EDEFF2;   --output-t:#333A44;     /* output: graphite */
+    --inter-b:#1D5FB0;    --inter-f:#E3ECF8;    --inter-t:#164081;      /* intermediate result: blue */
+    --threat-b:#C0392B;   --threat-f:#F8E3E0;   --threat-t:#7E231A;     /* threat reduction: red */
+    --target-b:#127A47;   --target-f:#E3F1E8;   --target-t:#0B5230;     /* biodiversity focal value: green */
+    --twell-b:#B4531B;    --twell-f:#F8E7DA;    --twell-t:#79360F;      /* human-wellbeing focal value: terracotta */
+    --assume-b:#79818B;   --assume-f:#EDEFF2;   --assume-t:#474D55;     /* assumption: dashed neutral */
+    --enable-b:#0E7C6B;   --enable-f:#DDF0EC;   --enable-t:#0A5347;     /* enabling condition: teal */
+    --obj-b:#6D3B9E;      --obj-f:#EDE6F6;      --obj-t:#492670;        /* objective: plum */
+    --ind-b:#79818B;      --ind-f:#EDEFF2;
+
+    --link:#B7BDC4; --link-strong:#5A616B;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:
+      radial-gradient(1100px 460px at 50% -12%, #EEF3F6 0%, rgba(238,243,246,0) 70%),
+      var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55; font-size:16px; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  .wrap{max-width:1320px; margin:0 auto; padding:26px 22px 72px}
+  .sysfont{font-family:var(--sans)}
+
+  header.site{border-bottom:2px solid var(--ink); padding-bottom:18px; margin-bottom:16px}
+  .kicker{font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent-ink); font-weight:600;
+    font-family:var(--sans)}
+  h1{font-family:var(--serif); font-size:32px; line-height:1.1; margin:.28em 0 .18em; font-weight:600; letter-spacing:-.4px; color:var(--ink)}
+  .sub{color:var(--muted); font-size:15px; margin:0; font-weight:500}
+  .intro{max-width:78ch; margin:13px 0 0; color:#2A2E34}
+  .intro b{font-weight:600; color:var(--ink)}
+  .reading{max-width:78ch; margin:12px 0 0; font-family:var(--sans); font-size:12.8px; color:var(--muted);
+    background:var(--panel); border:1px solid var(--hair); border-left:4px solid var(--accent);
+    border-radius:8px; padding:10px 13px}
+  .reading b{color:var(--ink); font-weight:600}
+
+  /* Tabs */
+  .tabs{display:flex; gap:6px; margin:20px 0 8px; border-bottom:1px solid var(--hair); flex-wrap:wrap}
+  .tab{
+    appearance:none; border:1px solid transparent; border-bottom:none; background:transparent;
+    color:var(--muted); font:inherit; font-size:15px; padding:9px 16px; cursor:pointer;
+    border-radius:8px 8px 0 0; position:relative; top:1px;
+    font-family:var(--sans); font-weight:500;
+  }
+  .tab[aria-selected="true"]{background:var(--panel); border-color:var(--hair); border-top:3px solid var(--accent); color:var(--ink); font-weight:600}
+  .tab:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+
+  /* Control bar */
+  .controls{display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; margin:14px 0 8px}
+  .ctl-group{display:flex; align-items:center; gap:7px; background:var(--panel); border:1px solid var(--hair2);
+    border-radius:9px; padding:6px 9px}
+  .ctl-group .lab{font-family:var(--sans); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--faint); font-weight:600}
+  select.ctl{font:inherit; font-family:var(--sans); font-size:13px; border:1px solid var(--hair2); border-radius:7px;
+    background:#fff; color:var(--ink); padding:5px 8px; max-width:260px}
+  select.ctl:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+  .btn{appearance:none; font:inherit; font-family:var(--sans); font-size:13px; font-weight:500; cursor:pointer;
+    border:1px solid var(--hair2); background:#fff; color:var(--ink); border-radius:8px; padding:7px 12px;
+    display:inline-flex; align-items:center; gap:7px; transition:background .14s ease, border-color .14s ease, box-shadow .14s ease}
+  .btn:hover{background:#F1F4F6; border-color:var(--accent)}
+  .btn:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:#FFFFFF; font-weight:600}
+  .btn.primary:hover{background:var(--accent-ink); border-color:var(--accent-ink)}
+  .btn .ico{width:15px; height:15px; display:inline-block}
+  .btn[aria-pressed="true"]{background:var(--accent-tint); border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent); color:var(--accent-ink)}
+  .switch{display:inline-flex; align-items:center; gap:7px; font-family:var(--sans); font-size:12.5px; color:var(--muted); cursor:pointer}
+  .switch input{position:absolute; opacity:0; width:0; height:0}
+  .track{width:34px; height:19px; border-radius:20px; background:#CDD2D8; border:1px solid var(--hair2); position:relative; transition:background .15s ease; flex:none}
+  .track::after{content:""; position:absolute; top:1.5px; left:2px; width:14px; height:14px; border-radius:50%; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.25); transition:left .15s ease}
+  .switch input:checked + .track{background:var(--accent)}
+  .switch input:checked + .track::after{left:16px}
+  .switch input:focus-visible + .track{outline:3px solid var(--focus); outline-offset:2px}
+
+  /* Legend (interactive filter) */
+  .legend{
+    display:flex; flex-wrap:wrap; gap:7px 8px; align-items:center;
+    background:var(--panel); border:1px solid var(--hair); border-radius:11px;
+    padding:10px 12px; margin:6px 0 14px;
+  }
+  .legend .lg-title{font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint);
+    font-family:var(--sans); font-weight:600; margin-right:2px; align-self:center}
+  .legend .lg-sep{width:1px; height:22px; background:var(--hair2); margin:0 3px}
+  .lg{position:relative; display:inline-flex; align-items:center; gap:7px; border:1px solid transparent; background:transparent;
+    font:inherit; font-family:var(--sans); font-size:12.5px; color:var(--ink); cursor:pointer; padding:4px 8px; border-radius:6px}
+  .lg:hover{background:#F1F4F6}
+  .lg:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+  .lg[aria-pressed="true"]{background:var(--accent-tint); border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent)}
+  .lg.static{cursor:help}
+  .sw{width:19px; height:15px; border:2px solid #999; background:#eee; flex:none; display:inline-block}
+  .sw.strategy{background:var(--strategy-f); border-color:var(--strategy-b); border-radius:0;
+    clip-path:polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%)}
+  .sw.output{background:var(--output-f); border-color:var(--output-b); border-radius:2px}
+  .sw.inter{background:var(--inter-f); border-color:var(--inter-b); border-radius:8px}
+  .sw.threat{background:var(--threat-f); border-color:var(--threat-b); border-radius:2px}
+  .sw.target{background:var(--target-f); border-color:var(--target-b); border-radius:13px/9px}
+  .sw.twell{background:var(--twell-f); border-color:var(--twell-b); border-radius:13px/9px}
+  .sw.assume{background:var(--assume-f); border:2px dashed var(--assume-b); border-radius:2px}
+  .sw.enable{background:var(--enable-f); border-color:var(--enable-b); border-radius:2px}
+  .sw.obj{background:var(--obj-f); border-color:var(--obj-b); transform:rotate(45deg); width:13px; height:13px}
+  .sw.ind{background:var(--ind-f); border-color:var(--ind-b); border-radius:8px; width:22px; height:11px}
+  .lg .tip{
+    position:absolute; bottom:calc(100% + 9px); left:0; width:236px; z-index:60;
+    background:#1D2026; color:#F3F4F6; font-size:12px; line-height:1.42;
+    font-family:var(--sans); padding:8px 10px; border-radius:8px;
+    box-shadow:0 8px 24px rgba(0,0,0,.28); opacity:0; visibility:hidden; transition:opacity .14s ease; pointer-events:none;
+  }
+  .lg:hover .tip, .lg:focus-visible .tip{opacity:1; visibility:visible}
+  .lg .tip::after{content:""; position:absolute; top:100%; left:16px; border:6px solid transparent; border-top-color:#1D2026}
+
+  /* Board + diagram */
+  .view[hidden]{display:none}
+  .board{position:relative}
+  svg.links{position:absolute; inset:0; width:100%; height:100%; z-index:1; overflow:visible; pointer-events:none}
+  svg.links.over{z-index:4}
+  svg.links .hit{pointer-events:auto}
+  .columns{position:relative; z-index:2; display:grid; grid-template-columns:repeat(5,1fr); gap:40px}
+  .col{min-width:0}
+  .col h2{
+    font-family:var(--sans); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:600;
+    color:var(--ink); margin:0 0 9px; padding:0 0 7px; border-bottom:2px solid var(--ink);
+    display:flex; align-items:center; gap:6px; min-height:32px;
+  }
+  .col h2 .num{font-family:var(--sans); font-size:10px; font-weight:700; color:#fff; background:var(--hair2);
+    width:17px; height:17px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; flex:none}
+  .col.c0 h2 .num{background:var(--strategy-b)} .col.c1 h2 .num{background:var(--output-b)}
+  .col.c2 h2 .num{background:var(--inter-b)} .col.c3 h2 .num{background:var(--threat-b)}
+  .col.c4 h2 .num{background:var(--target-b)}
+  .col h2 .chev{color:var(--faint); font-size:15px; margin-left:auto}
+  .stack{display:flex; flex-direction:column; gap:16px}
+
+  .node{
+    display:block; width:100%; text-align:left; font:inherit; cursor:pointer;
+    background:var(--panel); border:1px solid var(--hair2); border-left:5px solid #C7CCD2;
+    border-radius:7px; padding:11px 12px 10px; color:var(--ink); position:relative;
+    box-shadow:0 1px 2px rgba(20,30,40,.04);
+    transition:box-shadow .16s ease, transform .16s ease, border-color .16s ease, opacity .18s ease;
+  }
+  .node:hover{box-shadow:0 6px 18px rgba(20,30,40,.14); transform:translateY(-1px)}
+  .node:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+  .node .tag{
+    font-family:var(--sans); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--faint); display:flex; align-items:center; gap:5px; margin-bottom:4px; font-weight:700;
+  }
+  .node .tag .gly{width:14px; height:14px; flex:none}
+  .node .ttl{font-size:13.7px; line-height:1.34; display:block; font-weight:600; color:var(--ink)}
+  .node .meta{margin-top:8px; display:flex; flex-wrap:wrap; gap:4px}
+  .pill{
+    font-family:var(--sans); font-size:10px; line-height:1; padding:3px 7px; border-radius:5px; font-weight:500;
+    background:var(--ind-f); border:1px solid var(--ind-b); color:#474D55; white-space:nowrap; display:inline-flex; align-items:center; gap:3px;
+  }
+  .pill.warn{background:var(--assume-f); border-color:var(--assume-b); color:var(--assume-t)}
+  .pill.safe{background:var(--enable-f); border-color:var(--enable-b); color:var(--enable-t)}
+  .pill.obj{background:var(--obj-f); border-color:var(--obj-b); color:var(--obj-t)}
+  .pill.goal{background:var(--target-f); border-color:var(--target-b); color:var(--target-t)}
+  .node.sel{border-color:var(--accent); box-shadow:0 0 0 2px var(--accent), 0 8px 22px rgba(14,124,82,.18)}
+  .node.dim{opacity:.32}
+  .node.trace{border-color:var(--accent); box-shadow:0 0 0 1.5px rgba(14,124,82,.4), 0 5px 14px rgba(20,30,40,.10)}
+  .node.pulse{animation:pulse .9s ease}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(14,124,82,.5)}100%{box-shadow:0 0 0 14px rgba(14,124,82,0)}}
+
+  .node.strategy{border-left-color:var(--strategy-b)} .node.strategy .tag{color:var(--strategy-t)}
+  .node.output{border-left-color:var(--output-b)} .node.output .tag{color:var(--output-t)}
+  .node.inter{border-left-color:var(--inter-b); border-radius:13px} .node.inter .tag{color:var(--inter-t)}
+  .node.threat{border-left-color:var(--threat-b)} .node.threat .tag{color:var(--threat-t)}
+  .node.target{border:1.5px solid var(--target-b); border-left-width:5px; border-radius:16px; background:var(--target-f)} .node.target .tag{color:var(--target-t)}
+  .node.target.well{border-color:var(--twell-b); background:var(--twell-f)} .node.target.well .tag{color:var(--twell-t)}
+  .node.done{background:var(--accent-tint)}
+  .node .doneflag{position:absolute; top:8px; right:9px; font-family:var(--sans);
+    font-size:9px; letter-spacing:.04em; text-transform:uppercase; font-weight:700; color:var(--accent-ink); display:inline-flex; align-items:center; gap:3px}
+
+  /* Stage arrows for stacked (mobile) layout */
+  .stagearrow{display:none}
+
+  /* Assumptions strip */
+  .assume-strip{margin:20px 0 0; border:1px dashed var(--assume-b); border-radius:11px; background:#F6F8FA; padding:14px 16px}
+  .assume-strip h3, .safe-band h3{font-family:var(--sans); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:600;
+    color:var(--ink); margin:0 0 5px; display:flex; align-items:center; gap:7px}
+  .strip-lead{font-family:var(--sans); font-size:12.6px; color:var(--muted); margin:0 0 11px; max-width:96ch}
+  .assume-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:9px}
+  .assume-card{border:1px dashed var(--assume-b); border-radius:9px; background:var(--panel); padding:10px 12px;
+    font-size:12.7px; color:#2A2E34; text-align:left; cursor:pointer; font-family:var(--sans); line-height:1.45; transition:box-shadow .14s ease, transform .14s ease}
+  .assume-card:hover{box-shadow:0 5px 14px rgba(20,30,40,.12); transform:translateY(-1px)}
+  .assume-card:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+  .assume-card b{font-family:var(--sans); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--assume-t); display:block; margin-bottom:3px; font-weight:700}
+  .assume-card.risk{border-style:solid; border-color:var(--threat-b); background:var(--threat-f)}
+  .assume-card.risk b{color:var(--threat-b)}
+
+  /* Safeguards enabling band */
+  .safe-band{margin:16px 0 0; border:1px solid var(--hair2); border-top:4px solid var(--enable-b); border-radius:11px;
+    background:linear-gradient(0deg,var(--enable-f),#FFFFFF); padding:15px 17px}
+  .safe-band .lead{max-width:98ch; font-size:13.4px; color:#223531; margin:0 0 12px; font-family:var(--sans)}
+  .safe-band .lead b{font-weight:600; color:var(--ink)}
+  .safe-cols{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+  .safe-col{background:var(--panel); border:1px solid var(--hair2); border-top:2px solid var(--enable-b); border-radius:10px; padding:12px 14px}
+  .safe-col h4{font-family:var(--serif); margin:0 0 3px; font-size:16px; font-weight:600; color:var(--enable-t); display:flex; align-items:center; gap:7px}
+  .safe-col h4 .n{font-family:var(--sans); font-size:11px; font-weight:700; color:#fff; background:var(--enable-b); width:19px; height:19px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center}
+  .safe-col .q{font-size:12px; color:var(--muted); font-style:italic; margin:0 0 8px; font-family:var(--sans)}
+  .safe-col ul{margin:0; padding-left:16px}
+  .safe-col li{font-size:12.6px; margin:0 0 6px; line-height:1.44}
+  .cap-note{font-size:11.8px; color:var(--muted); margin:11px 0 0; font-family:var(--sans); max-width:100ch}
+  .cap-note cite{font-style:normal; color:var(--ink)}
+
+  /* Detail panel */
+  .detail{
+    margin:20px 0 0; background:var(--panel); border:1px solid var(--hair2); border-radius:12px;
+    padding:0; scroll-margin-top:14px; overflow:hidden; box-shadow:0 2px 12px rgba(20,30,40,.07);
+  }
+  .detail .dhead{padding:14px 18px; border-bottom:1px solid var(--hair); display:flex; gap:12px; align-items:flex-start; justify-content:space-between}
+  .detail .dhead .dtag{font-family:var(--sans); font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; display:flex; align-items:center; gap:6px}
+  .detail .dhead h3{font-family:var(--serif); margin:4px 0 0; font-size:21px; line-height:1.2; font-weight:600; color:var(--ink)}
+  .detail .dbody{padding:14px 18px 18px}
+  .detail .empty{color:var(--muted); font-size:14px; padding:22px 18px; font-family:var(--sans)}
+  .detail .empty b{color:var(--ink)}
+  .detail .kv{margin:0 0 14px}
+  .detail .kv:last-child{margin-bottom:0}
+  .detail .klabel{font-family:var(--sans); font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--faint); margin:0 0 5px; font-weight:600}
+  .detail .kv p{margin:0 0 6px}
+  .detail ul.acts{margin:0; padding-left:18px}
+  .detail ul.acts li{margin:0 0 5px; font-size:14px}
+  .detail .ind{border:1px solid var(--ind-b); background:var(--ind-f); border-radius:8px; padding:8px 10px; margin:0 0 7px}
+  .detail .ind .in{font-weight:600; font-size:13.5px}
+  .detail .ind .tg{font-size:13px; color:#4A5058; margin-top:2px}
+  .detail .ind .tg.ph{color:var(--strategy-t)}
+  .detail .box{border-radius:8px; padding:10px 12px; font-size:13.6px; margin:0 0 8px}
+  .detail .box.assume{background:var(--assume-f); border:1px dashed var(--assume-b)}
+  .detail .box.safe{background:var(--enable-f); border:1px solid var(--enable-b)}
+  .detail .box.threat{background:var(--threat-f); border:1px solid var(--threat-b)}
+  .detail .box.obj{background:var(--obj-f); border:1px solid var(--obj-b)}
+  .detail .box.goal{background:var(--target-f); border:1px solid var(--target-b)}
+  .detail .box.note{background:#F1F3F5; border:1px solid var(--hair2); color:var(--muted); font-size:12.6px}
+  .detail .box b{font-family:var(--sans); font-size:10px; letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:3px}
+  .ph-badge{font-family:var(--sans); font-size:9.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--strategy-t); background:var(--strategy-f); border:1px solid var(--strategy-b); border-radius:5px; padding:1px 5px; margin-left:6px}
+  .links-row{display:flex; flex-wrap:wrap; gap:16px}
+  .links-row .lk{flex:1 1 210px; min-width:0}
+  .links-row .lk .lkh{display:block; font-size:12px; margin:0 0 4px; color:var(--faint); font-family:var(--sans); text-transform:uppercase; letter-spacing:.05em; font-weight:600}
+  .jump{background:none; border:0; color:var(--focus); font:inherit; font-size:13px; text-align:left; padding:2px 0; cursor:pointer; display:block}
+  .jump:hover{text-decoration:underline}
+  .jump:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+  .jump::before{content:"→ "; color:var(--faint)}
+
+  .hint{font-size:12.4px; color:var(--muted); font-family:var(--sans); margin:6px 2px 10px}
+  .hint kbd{font-family:var(--sans); font-size:11px; background:#fff; border:1px solid var(--hair2); border-bottom-width:2px; border-radius:5px; padding:1px 5px; color:var(--muted)}
+
+  /* Situation model */
+  .cm-grid{display:grid; grid-template-columns:1.1fr 1fr .95fr; gap:16px; position:relative; z-index:2}
+  .cm-note{font-size:12.4px; color:var(--muted); margin:14px 2px 0; font-family:var(--sans); max-width:100ch}
+  .cm-lead{max-width:88ch; margin:2px 0 14px; color:#2A2E34}
+  .cm-lead b{font-weight:600; color:var(--ink)}
+
+  /* Guided tour panel */
+  .tour{position:fixed; left:50%; transform:translateX(-50%); bottom:18px; width:min(680px, calc(100vw - 28px)); z-index:80;
+    background:#15181D; color:#EEF0F2; border:1px solid #2A2F36; border-radius:14px; box-shadow:0 16px 44px rgba(0,0,0,.4);
+    padding:14px 16px; display:none}
+  .tour.on{display:block}
+  .tour .th{display:flex; align-items:center; gap:10px; margin-bottom:6px}
+  .tour .step-badge{font-family:var(--sans); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:#4FD39A;
+    background:rgba(14,124,82,.20); border:1px solid rgba(79,211,154,.45); border-radius:20px; padding:3px 9px}
+  .tour .th h4{margin:0; font-size:17px; font-weight:600; font-family:var(--serif); color:#FFFFFF; flex:1}
+  .tour .cap{font-family:var(--sans); font-size:13.2px; line-height:1.5; color:#CDD2D8; margin:0 0 11px}
+  .tour .cap b{color:#FFFFFF}
+  .tour .dots{display:flex; gap:5px; align-items:center; flex-wrap:wrap}
+  .tour .dot{width:8px; height:8px; border-radius:50%; background:#3A3F47; border:0; padding:0; cursor:pointer}
+  .tour .dot[aria-current="true"]{background:#4FD39A; transform:scale(1.25)}
+  .tour .dot:focus-visible{outline:2px solid #4FD39A; outline-offset:2px}
+  .tour .row{display:flex; align-items:center; gap:8px; justify-content:space-between}
+  .tour .tbtn{appearance:none; font:inherit; font-family:var(--sans); font-size:13px; font-weight:500; cursor:pointer; border-radius:8px; padding:7px 13px;
+    border:1px solid #3A3F47; background:#22262C; color:#EEF0F2; display:inline-flex; align-items:center; gap:6px}
+  .tour .tbtn:hover{background:#2C3138}
+  .tour .tbtn.primary{background:var(--accent); border-color:var(--accent); color:#FFFFFF; font-weight:700}
+  .tour .tbtn.primary:hover{background:#12925F; border-color:#12925F}
+  .tour .tbtn:disabled{opacity:.4; cursor:default}
+  .tour .tbtn:focus-visible{outline:3px solid #4FD39A; outline-offset:2px}
+  .tour .close{position:absolute; top:9px; right:10px; background:none; border:0; color:#9AA0A8; font-size:18px; cursor:pointer; line-height:1; padding:4px}
+  .tour .close:hover{color:#fff}
+
+  footer.site{margin-top:34px; border-top:2px solid var(--ink); padding-top:14px;
+    font-family:var(--sans); font-size:12.2px; color:var(--muted)}
+  footer.site p{margin:0 0 4px; max-width:104ch}
+
+  .print-only{display:none}
+
+  @media (max-width:980px){
+    .columns{grid-template-columns:1fr; gap:0}
+    .col{border-bottom:1px dashed var(--hair2); padding-bottom:8px; margin-bottom:8px}
+    .col:last-child{border-bottom:0}
+    .col h2{margin-top:8px}
+    .col h2 .chev{display:none}
+    svg.links{display:none}
+    .stagearrow{display:flex; justify-content:center; color:var(--faint); font-size:20px; margin:2px 0 8px}
+    .safe-cols{grid-template-columns:1fr}
+    .cm-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:560px){
+    body{font-size:15px}
+    .wrap{padding:16px 13px 60px}
+    h1{font-size:22px}
+    .tour{bottom:10px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important; scroll-behavior:auto !important; animation:none !important}
+  }
+  @media print{
+    :root{--paper:#fff; --panel:#fff}
+    body{background:#fff; font-size:10.6pt}
+    .wrap{max-width:none; padding:0}
+    .tabs,.controls,.hint,.jump,svg.links,.tour,.reading{display:none !important}
+    .view[hidden]{display:block !important}
+    .view{break-before:page}
+    #view-chain{break-before:auto}
+    .node{break-inside:avoid; box-shadow:none; transform:none}
+    .columns{grid-template-columns:repeat(5,1fr); gap:6px}
+    .col h2 .chev{display:none}
+    .legend{break-inside:avoid}
+    .safe-cols{grid-template-columns:repeat(3,1fr)}
+    .detail{display:none}
+    .print-only{display:block}
+    .pa-node{break-inside:avoid; border:1px solid #bbb; border-radius:6px; padding:8px 10px; margin:0 0 8px}
+    .pa-node h4{margin:0 0 4px; font-size:11pt}
+    a[href]::after{content:""}
+    *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="site">
+    <div class="kicker">CMP Conservation Standards v5 &middot; Open Standards for the Practice of Conservation &middot; interactive results chain</div>
+    <h1>Human-elephant coexistence through agroforestry: results chain</h1>
+    <p class="sub">ZSL Thailand, Kanchanaburi Province (southern Western Forest Complex, sWEFCOM) &middot; Darwin Initiative 30-003</p>
+    <p class="intro">Farmers in Kanchanaburi rely on elephant-attractive crops for income. Wild elephants raid those crops: cassava is grown across all 17 surveyed communities and loses a mean <b>42%</b> to elephants, government compensation covers roughly <b>10%</b> of the loss, and a single raid can eliminate a season's income. The chain below sets out how diversified, elephant-friendly agroforestry is intended to change that. The band beneath it sets out the social safeguards that determine whether the change is equitable, not only aggregate.</p>
+    <p class="reading sysfont"><b>Reading this chain.</b> It follows the Conservation Standards causal sequence: <b>action &rarr; result &rarr; threat reduction &rarr; focal value</b>, with assumptions sitting on the links and a goal or objective attached to key results. The <b>Outputs</b> tier is the programme's Darwin logframe products, shown here as the earliest results so donor and Open Standards logic read as one diagram.</p>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Diagram views">
+    <button class="tab" id="tab-chain" role="tab" aria-selected="true" aria-controls="view-chain">Results chain</button>
+    <button class="tab" id="tab-model" role="tab" aria-selected="false" aria-controls="view-model" tabindex="-1">Situation model</button>
+  </div>
+
+  <!-- CONTROL BAR -->
+  <div class="controls" id="controls" aria-label="Diagram controls">
+    <button class="btn primary" id="btn-tour" type="button">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+      Guided tour
+    </button>
+    <div class="ctl-group">
+      <span class="lab" id="focus-lab">Focus one action</span>
+      <select class="ctl" id="focus-select" aria-labelledby="focus-lab">
+        <option value="">All actions</option>
+      </select>
+    </div>
+    <button class="btn" id="btn-completed" type="button" aria-pressed="false">Show completed only</button>
+    <button class="btn" id="btn-reset" type="button">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z" fill="currentColor"/></svg>
+      Reset view
+    </button>
+    <label class="switch" title="Animate a directional flow along active connectors">
+      <input type="checkbox" id="chk-flow" checked>
+      <span class="track" aria-hidden="true"></span> Animate flow
+    </label>
+  </div>
+
+  <!-- LEGEND (interactive filter) -->
+  <div class="legend" id="legend" aria-label="Legend and element-type filter">
+    <span class="lg-title">Filter</span>
+    <button class="lg" data-ftype="strategy" aria-pressed="false"><span class="sw strategy" aria-hidden="true"></span>Action<span class="tip" role="tooltip">A set of activities with a common focus: the intervention, shown as the Miradi gold hexagon. CS v5 renamed this element from &ldquo;strategy&rdquo; to &ldquo;action.&rdquo; Click to isolate.</span></button>
+    <button class="lg" data-ftype="output" aria-pressed="false"><span class="sw output" aria-hidden="true"></span>Output<span class="tip" role="tooltip">The immediate product an action delivers (Darwin logframe tier). Click to isolate.</span></button>
+    <button class="lg" data-ftype="inter" aria-pressed="false"><span class="sw inter" aria-hidden="true"></span>Intermediate result<span class="tip" role="tooltip">A short-to-medium-term change on the pathway to reducing a threat or improving a focal value. Click to isolate.</span></button>
+    <button class="lg" data-ftype="threat" aria-pressed="false"><span class="sw threat" aria-hidden="true"></span>Threat reduction<span class="tip" role="tooltip">A measurable reduction in a direct threat to a focal value. Click to isolate.</span></button>
+    <button class="lg" data-ftype="target" aria-pressed="false"><span class="sw target" aria-hidden="true"></span>Focal value<span class="tip" role="tooltip">A biodiversity or human-wellbeing element the programme works to sustain. CS v5 renamed this from &ldquo;target.&rdquo; Green = biodiversity, terracotta = wellbeing. Click to isolate.</span></button>
+    <span class="lg-sep" aria-hidden="true"></span>
+    <span class="lg static" tabindex="0"><span class="sw obj" aria-hidden="true"></span>Objective<span class="tip" role="tooltip">A formal, measurable statement attached to a key result (Miradi plum diamond).</span></span>
+    <span class="lg static" tabindex="0"><span class="sw goal" style="background:var(--target-f);border:2px solid var(--target-b);border-radius:13px/9px;width:19px;height:15px;display:inline-block" aria-hidden="true"></span>Goal<span class="tip" role="tooltip">A formal statement of the desired future status of a focal value.</span></span>
+    <span class="lg static" tabindex="0"><span class="sw assume" aria-hidden="true"></span>Assumption<span class="tip" role="tooltip">A link in the causal logic the team cannot yet demonstrate and must monitor: a "leap of faith". Shown as a diamond on the link.</span></span>
+    <span class="lg static" tabindex="0"><span class="sw enable" aria-hidden="true"></span>Enabling condition<span class="tip" role="tooltip">A factor outside the direct chain that must hold. Here: the social safeguards that determine equity.</span></span>
+  </div>
+
+  <!-- ============ RESULTS CHAIN VIEW ============ -->
+  <section class="view" id="view-chain" role="tabpanel" aria-labelledby="tab-chain">
+    <p class="hint sysfont"><b>Hover any box</b> to light up its direct links; <b>select</b> it to trace and colour the full causal chain and open its detail (activities, indicators, the assumption on its link, the objective or goal, and the safeguard attached). Diamonds on the links are assumptions. Keyboard: <kbd>Tab</kbd> to a node, <kbd>Enter</kbd> to trace, arrow keys to move.</p>
+    <div class="board">
+      <svg class="links" id="links" aria-hidden="true"></svg>
+      <div class="columns" id="columns"></div>
+      <svg class="links over" id="links-over" aria-hidden="true"></svg>
+    </div>
+
+    <div class="assume-strip" aria-label="Assumptions and leaps of faith">
+      <h3><span class="sw assume" style="width:15px;height:12px" aria-hidden="true"></span>Assumptions and leaps of faith</h3>
+      <p class="strip-lead">The Open Standards ask teams to be explicit about the assumptions on which the chain depends. Each card is a link the programme cannot yet demonstrate; select it to jump to where it sits in the chain.</p>
+      <div class="assume-grid" id="assume-grid"></div>
+    </div>
+
+    <div class="safe-band" aria-label="Social safeguards: enabling conditions">
+      <h3><span class="sw enable" style="width:15px;height:12px" aria-hidden="true"></span>Enabling condition: social safeguards (ZSL FAIRER / GEDSI)</h3>
+      <p class="lead">These conditions determine whether the chain above delivers equitable outcomes, not only aggregate ones. The programme's GEDSI synthesis maps its safeguards to the environmental-justice dimensions below: whether the costs and benefits of living with elephants are <b>recognised</b>, whether <b>procedures</b> are fair, and whether <b>benefits</b> are equitably distributed.</p>
+      <div class="safe-cols" id="safe-cols"></div>
+      <p class="cap-note">Framing follows the environmental-justice account used in the programme's GEDSI synthesis (<cite>Schlosberg, 2007</cite>; Moser gender-planning framework; Kabeer). Recognition failures normalise distributive failures and let procedural failures go unchallenged (<cite>Martin et al., 2016</cite>). The fourth dimension, capabilities, is tracked through the household Wellbeing Index.</p>
+    </div>
+
+    <div class="detail" id="detail" role="region" aria-live="polite" aria-label="Node detail">
+      <div class="empty" id="detail-empty">No node selected. Choose any element to trace its causal chain and read its detail. Or start the <b>Guided tour</b> to walk the theory of change one link at a time.</div>
+      <div id="detail-content" hidden></div>
+    </div>
+  </section>
+
+  <!-- ============ SITUATION MODEL VIEW ============ -->
+  <section class="view" id="view-model" role="tabpanel" aria-labelledby="tab-model" hidden>
+    <p class="cm-lead sysfont"><b>Situation model: the current state.</b> Open Standards practice builds a results chain by converting a situation model. Where the results chain shows the desired future state ("how we will change the world"), the situation model shows the present ("how the world currently works"): how governance and climate drivers produce direct threats, and what is at stake. Drivers are policy and market conditions, not only "conflict".</p>
+    <div class="board">
+      <div class="cm-grid" id="cm-grid"></div>
+    </div>
+    <p class="cm-note">Scope note: the concept note frames the programme around two species, the Asian elephant and the bumblebee bat (<i>Craseonycteris thonglongyai</i>). This results chain and situation model address the elephant focal value; the bat is out of scope here.</p>
+  </section>
+
+  <!-- ============ PRINT APPENDIX ============ -->
+  <section class="print-only" id="print-appendix" aria-hidden="true">
+    <h2>Node details (printed reference)</h2>
+    <div id="pa-list"></div>
+  </section>
+
+  <!-- GUIDED TOUR PANEL -->
+  <div class="tour" id="tour" role="dialog" aria-modal="false" aria-label="Guided tour of the theory of change">
+    <button class="close" id="tour-close" type="button" aria-label="Exit tour">&times;</button>
+    <div class="th">
+      <span class="step-badge" id="tour-badge">Step 1</span>
+      <h4 id="tour-title">Title</h4>
+    </div>
+    <p class="cap" id="tour-cap">Caption</p>
+    <div class="row">
+      <div class="dots" id="tour-dots" role="tablist" aria-label="Tour steps"></div>
+      <div style="display:flex; gap:8px">
+        <button class="tbtn" id="tour-prev" type="button">Back</button>
+        <button class="tbtn primary" id="tour-next" type="button">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site">
+    <p>Programme: ZSL Thailand (Darwin Initiative). Social safeguards and MEL design: Tyler Nuckols, Ground Truth Advisory.</p>
+    <p>Framework: CMP Conservation Standards v5 (Open Standards for the Practice of Conservation). Structure, actions, and safeguards are drawn from the programme's results chain, Darwin logframe (CR3), and FAIRER safeguard plan.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============================================================
+     DATA: results chain nodes
+     type: strategy | output | inter | threat | target
+     ============================================================ */
+  var NODES = [
+    /* ---------- STRATEGIES (col 0) ---------- */
+    {id:"s_live", type:"strategy", col:0, title:"Build capacity for adoption and scaling of elephant-resilient livelihoods",
+     summary:"Incentivise and build farmer capacity to adopt or scale elephant-resilient agroforestry livelihoods.",
+     acts:["Soil analysis and agroclimatic mapping (24 sites, completed 2023)","Site-level feasibility, suitability and value-chain analyses for selected crops","Dissemination focus groups and meetings with communities","Meetings to co-develop planting models and assess funding and capacity needs","Provide seed funding and advisory services for demonstration farms"],
+     inds:[{n:"# of farmers demonstrating improved capacity 6 months after training", t:"60 farmers (30% women, 30% IPLC) demonstrate improved capacity 6 months after completing at least one structured training, by end of Y3 [DI-A01]"}],
+     assume:"Communities are interested in and willing to shift away from current livelihoods and mitigation methods.",
+     safe:"FPIC obtained before farm engagement; project-team positionality sense-check precedes each new site.",
+     to:["o_needs","o_suit"]},
+
+    {id:"s_cy", type:"strategy", col:0, title:"Co-develop Chang Yim elephant-friendly standard and validation system",
+     summary:"Design and validate the Chang Yim elephant-friendly standard, and connect farms to an elephant-friendly product network.",
+     acts:["Co-develop Chang Yim standards and a validation system for elephant-friendly agroforestry","Identify market opportunities for Chang Yim standards","Create a structured training framework: standards, market and business access, biodiversity monitoring","Connect the elephant-friendly product network to exchange knowledge"],
+     inds:[{n:"# HH adopting Chang Yim standards", t:"30 households adopt the Chang Yim elephant-friendly standard by end of Y3"},{n:"Fine Robusta coffee quality", t:"10 coffee-producing farmers meet the Fine Robusta standard (80 points) by end of Y3 [DI-A04]"}],
+     assume:"Elephant-friendly products are a sustainable investment, with market prices remaining relatively stable and competitive.",
+     safe:"Benefit-sharing mechanism agreed with the Chang Yim group; community representation and decision-making in enterprise governance.",
+     to:["o_mkt","o_bm"]},
+
+    {id:"s_mon", type:"strategy", col:0, title:"Establish systematic HEC monitoring with communities and SAOs",
+     summary:"Stand up community-based monitoring of elephant movement and crop raiding across corridor zones.",
+     acts:["Camera trapping, community engagement and crop-raid monitoring","Identify key elephant crossing areas, recurring crop-raiding individuals, and demographics of dispersing elephants","Community-led citizen science supported by FORRU and/or Mahidol University"],
+     inds:[{n:"# of detections of elephants outside protected areas", t:"Baseline ≈ 480 detections/year across 17 communities; 25% reduction by end of Y3"},{n:"# of youth/farmers engaged in citizen science research", t:"40 youth and farmers active in citizen-science monitoring by end of Y2"}],
+     assume:null,
+     safe:"Monitoring data collected with communities; Indigenous enumerators used where possible.",
+     to:["o_farms"]},
+
+    {id:"s_hab", type:"strategy", col:0, title:"Wildlife-friendly land-use planning and habitat management",
+     summary:"Restore and secure habitat and movement corridors so elephants can meet their needs inside the forest complex.",
+     acts:["Strengthen or establish community forests and OECMs","Forest landscape restoration workshops for community forests, protected-area staff, and communities","Co-identify corridor management strategies with government and community actors","ERRUs and SAOs designate elephant corridors and habitat, registered as OECMs","Pilot wildlife-safe crossings (AI SAFER system) in sWEFCOM"],
+     inds:[{n:"# of OECMs established or strengthened", t:"6 OECMs established or strengthened by end of Y3"},{n:"# of corridor management plans co-developed", t:"3 corridor-management plans co-developed by end of Y2"},{n:"# hectares strengthened/secured as elephant/wildlife corridor", t:"1,200 ha secured as elephant/wildlife corridor by end of Y3"}],
+     assume:"Sufficient available elephant habitat, including food, water, and dispersal pathways, supports the population.",
+     safe:null,
+     to:["i_flr"]},
+
+    {id:"s_pol", type:"strategy", col:0, title:"Policy advocacy and green-finance engagement",
+     summary:"Change the incentives: payment for ecosystem services, green finance, and a bankable business plan for scaling.",
+     acts:["Policy review, policymaker engagement, and knowledge products for FLR and corridor management","Private-sector engagement for green finance","sWEFCOM business plan pitched to investors for seed financing","UK PACT instruments (green bonds, carbon markets)"],
+     inds:[{n:"Agroforestry model is bankable; increased private-sector investment", t:"USD 250,000 in private-sector and green finance leveraged by end of Y3"}],
+     assume:"Government policy, green finance, and private-sector engagement incentivise adoption of agroforestry and forest landscape restoration.",
+     safe:"Green-finance design carries explicit GEDSI criteria: earmarked allocations for women-led groups and Thailand Taxonomy minimum social safeguards.",
+     to:["i_flr","i_adopt"]},
+
+    /* ---------- OUTPUTS (col 1) ---------- */
+    {id:"o_needs", type:"output", col:1, title:"Needs, challenges, and barriers to agroforestry adoption understood", done:true,
+     summary:"Community-led focus groups established current practices, losses, and barriers to adoption.",
+     acts:["Community-led focus groups across 17 communities (369 farmers), 2024","Land-ownership and vulnerability / identity mapping","Assessment of barriers to adoption of agroforestry"],
+     inds:[{n:"Focus-group coverage and disaggregation", t:"Target: 320 people across 17 HEC communities (30% women, 30% Indigenous) by end of Y2; 369 farmers reached by the 2024 focus groups"}],
+     to:["i_will","i_clim"]},
+
+    {id:"o_suit", type:"output", col:1, title:"Biogeographical suitability assessment identifies appropriate crop options", done:true,
+     summary:"Soil and climate work identified which elephant-friendly crops suit each part of the landscape.",
+     acts:["Soil nutrient assessment across 24 sites (NPK and pH; three agroclimatic clusters)","Agroclimatic mapping and crop compatibility","Species selection matrix and model-farm planting plans"],
+     inds:[{n:"Suitability outputs", t:"Crop options identified for three agroclimatic zones (drier lowlands, highlands, mid-elevation)"}],
+     to:["i_adopt"]},
+
+    {id:"o_mkt", type:"output", col:1, title:"Market assessment identifies income-generating crops and viable markets",
+     summary:"A value-chain analysis identified viable markets that meet community needs and preferences.",
+     acts:["Coffee value-chain analysis (Chain2Change, 2024)","Fine Robusta coffee market identified in sWEFCOM","VCA identifies additional value-add opportunities"],
+     inds:[{n:"Market analysis", t:"One market-analysis report prioritising elephant-friendly products across three agroclimatic zones by end of Y1"}],
+     to:["i_qual"]},
+
+    {id:"o_farms", type:"output", col:1, title:"Model farms established and operating across three agroclimatic zones",
+     summary:"Three demonstration farms test feasibility and income potential across the zones.",
+     acts:["Chang Pa (Huai Kha Yeng, highland): most advanced, ~1.6 ha (10 rai) planted","Chang Yim (Chalae / Phu Toei, highland): enterprise forming","Nan farm (Tha Manao, lowland): cost-share agreement, earlier stage","Provide seed funding and advisory services; demonstrate feasibility"],
+     inds:[{n:"# of agroforestry business plans developed", t:"3 agroforestry business plans developed by end of Y2"}],
+     assume:"Proposed elephant-friendly business models and livelihood plans are considered sufficiently viable and attractive by communities.",
+     to:["i_will","i_land"]},
+
+    {id:"o_bm", type:"output", col:1, title:"Value-driven agroforestry business models co-developed with community",
+     summary:"Enterprise governance, workplans, and benefit-sharing developed with each community.",
+     acts:["Co-develop 3, 5 and 10-year workplans and Chang Yim standards","Establish enterprise governance and articles of incorporation, if determined by the community","Agree benefit-sharing and responsibilities"],
+     inds:[{n:"Enterprise registration", t:"30 farmers (30% women, 30% IPLC; benefiting ca. 70-120 people) registered with an elephant-resilient coffee community enterprise by end of Y2 [DI-D03]"}],
+     safe:"Benefit-sharing formalised through legally binding agreements; independent oversight through community monitoring committees or external auditors.",
+     to:["i_adopt"]},
+
+    /* ---------- INTERMEDIATE RESULTS (col 2) ---------- */
+    {id:"i_will", type:"inter", col:2, title:"Farmers have the willingness, knowledge, capacity, and resources to adopt alternative livelihoods",
+     summary:"Farmers move from awareness to readiness to adopt.",
+     acts:[],
+     inds:[{n:"Interest and willingness", t:"At least 100 farmers express strong interest in and willingness to explore adoption following dissemination to three districts"}],
+     objective:"After dissemination to three districts, at least 100 farmers express strong willingness to explore adoption.",
+     assume:"Communities understand that alternative livelihoods and enterprise activity are linked to their engagement in conservation and coexistence.",
+     to:["t_crop"]},
+
+    {id:"i_adopt", type:"inter", col:2, title:"Increased adoption of drought-resistant, elephant-resistant crops in HEC hotspots",
+     summary:"Elephant-attractive monocrop area falls as farmers plant elephant-resistant, drought-resistant systems.",
+     acts:[],
+     inds:[{n:"# of hectares converted from cash monocrops to agroforestry", t:"180 ha converted from cash monocrops to agroforestry by end of Y3"},{n:"% increase in income vs baseline / cash monocrop", t:"10 coffee-producing households report a 30% increase in sales value against the Y1 baseline by end of Y3 [DI-D03]"}],
+     objective:"By end of Y3, 180 hectares are converted from cash monocrops to elephant-resistant agroforestry in HEC hotspots.",
+     safe:"Annual elephant-resistant crops (lemongrass, turmeric, mint, chili, pepper) offered to renters excluded from perennial coffee.",
+     to:["t_crop","t_comp","t_aggr"]},
+
+    {id:"i_land", type:"inter", col:2, title:"Local farmers' land registered and formalised",
+     summary:"Tenure recognised so farmers can invest in perennial systems. In the 2024 survey 14% rent and 7% own without legal title.",
+     acts:[],
+     inds:[{n:"Tenure formalisation", t:"45 farmers' parcels formalised or documented by end of Y3"}],
+     safe:"Recognition of renters and untitled farmers; annual-crop pathways where perennial planting is not permitted near protected areas or watersheds.",
+     to:["t_crop"]},
+
+    {id:"i_qual", type:"inter", col:2, title:"Quality and yield of crops improved; higher quality increases market value",
+     summary:"Better coffee and crop quality raises the price farmers receive.",
+     acts:[],
+     inds:[{n:"Sales value against baseline", t:"10 coffee-producing households report a 30% increase in sales value against the Y1 baseline by end of Y3 [DI-D03]"}],
+     to:["t_income"]},
+
+    {id:"i_flr", type:"inter", col:2, title:"Increased forest landscape restoration in upland watershed and elephant movement corridors",
+     summary:"Restored corridors and community forests give elephants room to move inside the complex.",
+     acts:[],
+     inds:[{n:"# of OECMs established or strengthened", t:"6 OECMs established or strengthened by end of Y3"},{n:"# hectares strengthened/secured as elephant/wildlife corridor", t:"1,200 ha secured as elephant/wildlife corridor by end of Y3"}],
+     assume:"Government policy and green finance incentivise forest landscape restoration and corridor management.",
+     to:["t_move"]},
+
+    {id:"i_clim", type:"inter", col:2, title:"Communities understand the role of agroforestry and biodiversity in safeguarding livelihoods against unpredictable climate",
+     summary:"Root cause named by farmers in the 2024 focus groups: water shortage during a six-to-seven-month dry period linked to El Niño.",
+     acts:[],
+     inds:[{n:"Shared understanding of climate-agroforestry linkage", t:"70% of participating farmers link agroforestry and biodiversity to climate resilience by end of Y3 (baseline 25%)"}],
+     to:["t_comp"]},
+
+    /* ---------- THREAT REDUCTION (col 3) ---------- */
+    {id:"t_crop", type:"threat", col:3, title:"Reduced damage to crops, property, and infrastructure by elephants",
+     summary:"Fewer and smaller raids on farms in target areas.",
+     acts:[],
+     inds:[{n:"# of annual incidences of crop/property damage in target areas", t:"Baseline ≈ 210 incidents/year in target areas; 40% reduction by end of Y3"}],
+     objective:"By end of Y3, annual crop and property-damage incidents in target areas are reduced by 40% against the 2024 baseline of ≈ 210 incidents.",
+     magnitude:"From 2024 focus groups: cassava damaged in all 17 communities, mean loss 42%; maize 59%; sugarcane 32%. Nationally, 3,000+ HEC incidents per year, up 30% over five years. Scope: very high (all 17 communities); severity: high (2024 rapid assessment).",
+     to:["t_retal","tg_well"]},
+
+    {id:"t_income", type:"threat", col:3, title:"Reduced income loss from HEC",
+     summary:"Diversified, higher-value production offsets the income lost to raiding. (Wellbeing pathway, not a biodiversity threat reduction.)",
+     acts:[],
+     inds:[],
+     objective:"By end of Y3, 10 coffee-producing households report a 30% increase in sales value against the Y1 baseline [DI-D03].",
+     assume:"A supplementary revenue stream, unimpacted by HEC, partially decouples community wellbeing from conflict, providing a basis for coexistence.",
+     to:["tg_well"]},
+
+    {id:"t_move", type:"threat", col:3, title:"Reduced movement of elephants outside protected areas",
+     summary:"Elephants spend less time outside the forest complex as habitat and corridors improve.",
+     acts:[],
+     inds:[{n:"# of detections of elephants outside protected areas", t:"Baseline ≈ 480 detections/year; 25% reduction in target corridors by end of Y3"}],
+     objective:"By end of Y3, detections of elephants outside protected areas in target corridors fall by 25% against the 2024 baseline.",
+     to:["tg_ele"]},
+
+    {id:"t_aggr", type:"threat", col:3, title:"Reduced use of improperly implemented or aggressive mitigation methods",
+     summary:"Farmers use safe, effective, non-violent deterrence instead of harmful methods.",
+     acts:[],
+     inds:[{n:"Use of aggressive/improper deterrence", t:"Reported use of aggressive or improper deterrence down from 60% to 30% of surveyed households by end of Y3"}],
+     safe:"Community enterprise members coached in safe, effective, non-violent deterrence; HEC data reported at monthly steering-committee meetings.",
+     to:["t_retal"]},
+
+    {id:"t_retal", type:"threat", col:3, title:"Reduced retaliatory killing of elephants",
+     summary:"As losses and aggressive mitigation fall, so does retaliation against elephants.",
+     acts:[],
+     inds:[{n:"# of elephants killed or injured by people intentionally", t:"Baseline 3 elephants/year (2021–2024 mean); target zero in participating communities"}],
+     objective:"Over the programme period, no elephants are killed or injured intentionally by people in participating communities (2021–2024 baseline: 3 per year).",
+     to:["tg_ele"]},
+
+    {id:"t_comp", type:"threat", col:3, title:"Reduced competition between people and elephants over land and water",
+     summary:"Less overlap and pressure over the resources both people and elephants depend on.",
+     acts:[],
+     inds:[],
+     to:["tg_ele","tg_well"]},
+
+    /* ---------- TARGETS (col 4) ---------- */
+    {id:"tg_ele", type:"target", col:4, title:"Elephant population stability",
+     summary:"Biodiversity focal value: a stable Asian elephant (Elephas maximus) population in the southern Western Forest Complex.",
+     acts:[],
+     inds:[{n:"# of people killed or injured by elephants annually", t:"Baseline 2 people/year; target zero serious injuries in participating communities"},{n:"Elephant population trend", t:"sWEFCOM subpopulation stable or increasing (2024 baseline ≈ 220 individuals)"}],
+     goal:"By 2030, the Asian elephant population in sWEFCOM is stable or increasing, with no net loss attributable to human-elephant conflict (2024 baseline ≈ 220 individuals; threshold ≥ 0% annual growth).",
+     assume:"Sufficient elephant habitat (food, water, dispersal pathways) supports the population.",
+     to:[]},
+
+    {id:"tg_well", type:"target", col:4, well:true, title:"Secure, equitably distributed farmer livelihoods and wellbeing",
+     summary:"Human-wellbeing focal value: secure and equitably distributed livelihoods, and reduced death or injury of people from elephants.",
+     acts:[],
+     inds:[{n:"# of farmers with improved wellbeing (social capital, physical and mental health and safety)", t:"30 people (30% women, 30% IPLC) demonstrate increased subjective and relational wellbeing by end of Y3 versus the Y2 baseline"},{n:"Measurement instrument", t:"Wellbeing Index (Woodhouse et al., 2015: subjective, financial, material-style-of-life, and social-relations domains) and a Conservation Attitude Index, disaggregated by gender and IPLC status."}],
+     goal:"By end of Y3, targeted households report secure and more equitably distributed livelihoods and wellbeing, with no deaths or serious injuries from elephants in participating communities.",
+     note:"The logframe specifies this Wellbeing Index, not A-WEAI. If A-WEAI is intended, confirm and swap the instrument.",
+     to:[]},
+  ];
+
+  /* ---------- Assumptions strip ---------- */
+  var ASSUMPTIONS = [
+    {label:"Willingness", risk:false, node:"s_live", text:"Communities are willing to shift away from current livelihoods and mitigation methods. Acts on the links from actions into farmer adoption."},
+    {label:"Habitat", risk:false, node:"tg_ele", text:"Sufficient elephant habitat (food, water, dispersal pathways) supports the population. Acts on the link into elephant population stability."},
+    {label:"Policy and finance", risk:false, node:"s_pol", text:"Government policy, green finance, and private-sector engagement incentivise agroforestry and forest landscape restoration. Acts on scaling and restoration."},
+    {label:"Revenue decoupling", risk:false, node:"t_income", text:"A supplementary revenue stream, unimpacted by HEC, partially decouples wellbeing from conflict and provides a basis for coexistence."},
+    {label:"Risk: buffer-zone expansion", risk:true, node:"i_adopt", text:"If agroforestry land becomes investible, agricultural area may expand into contended buffer-zone land. Mitigation: include articles prohibiting encroachment and unregulated expansion in the Chang Yim standards and registration."},
+  ];
+
+  /* ---------- Safeguards ---------- */
+  var SAFE = [
+    {h:"Recognition", q:"Whose costs and benefits are seen?", items:[
+      "Vulnerability and identity mapping: gender, land tenure, age, debt, and disability (Washington Group Short Set).",
+      "Recognition of renters (14%) and farmers without legal title (7%), women, and Indigenous Karen (10%) and Mon (2%) participants in the 2024 survey.",
+      "Power, privilege, and positionality sense-checks by the project team before each new site."
+    ]},
+    {h:"Procedure", q:"Are the procedures fair?", items:[
+      "FPIC as a continuous process at district and village level: obtained from all 369 focus-group participants and at Chang Pa (Sep 2025); ongoing at Chang Yim and Tha Manao.",
+      "Anonymous grievance mechanism, piloted at Chang Pa with a separate mechanism for Chang Yim, co-designed with communities.",
+      "Inclusive facilitation and visual aids; quarterly community meetings; community representation and decision-making in enterprise governance."
+    ]},
+    {h:"Distribution", q:"Are the benefits shared equitably?", items:[
+      "Benefit-sharing formalised through legally binding agreements; independent oversight via community monitoring committees or external auditors.",
+      "Annual elephant-resistant crops (lemongrass, turmeric, mint, chili, pepper) for renters excluded from perennial coffee; attention to carbon-market eligibility barriers.",
+      "Disaggregated indicators with 30% women and 30% IPLC participation targets across the value chain."
+    ]},
+  ];
+
+  /* ---------- Situation model ---------- */
+  var CM = {
+    drivers:[
+      {title:"Government programmes promote monoculture cash crops (cassava, sugarcane, maize)", note:"Elephant-attractive crops planted at scale."},
+      {title:"Climate variability and El Niño", note:"Farmers reported a six-to-seven-month dry period in the 2024 focus groups; water shortage named as the root cause of raiding."},
+      {title:"Land-tenure insecurity", note:"14% of surveyed farmers rent; 7% hold no legal title, limiting investment in perennial systems."},
+      {title:"Compensation covers roughly 10% of crop losses", note:"The Thai government scheme leaves most of the loss with the farmer."},
+      {title:"Carbon-market eligibility barriers", note:"Acreage thresholds and tenure rules exclude smallholders, leaseholders, and communities near protected areas."}
+    ],
+    threats:[
+      {title:"Crop raiding by elephants", note:"Cassava damaged in all 17 communities; mean loss 42%, maize 59%."},
+      {title:"Agricultural expansion into buffer-zone and corridor land", note:"Pressure on contended land, heightened if agroforestry land becomes investible."},
+      {title:"Aggressive or improperly implemented HEC mitigation", note:"Harmful deterrence methods in response to repeated losses."},
+      {title:"Retaliatory killing of elephants", note:"Direct threat to the population following losses and confrontation."}
+    ],
+    targets:[
+      {title:"Asian elephant (Elephas maximus) population stability in sWEFCOM", well:false},
+      {title:"Secure, equitably distributed farmer livelihoods and wellbeing", well:true}
+    ]
+  };
+
+  var TYPE_LABEL = {strategy:"Action", output:"Output", inter:"Intermediate result", threat:"Threat reduction", target:"Focal value"};
+  var COLS = [
+    {key:0, label:"Actions"},
+    {key:1, label:"Outputs"},
+    {key:2, label:"Intermediate results"},
+    {key:3, label:"Threat reduction"},
+    {key:4, label:"Focal values"}
+  ];
+  var TYPE_COLORVAR = {strategy:"--strategy-b", output:"--output-b", inter:"--inter-b", threat:"--threat-b", target:"--target-b"};
+
+  var byId = {};
+  NODES.forEach(function(n){ byId[n.id] = n; });
+  NODES.forEach(function(n){ n.from = []; });
+  NODES.forEach(function(n){ (n.to||[]).forEach(function(t){ if(byId[t]) byId[t].from.push(n.id); }); });
+
+  /* ---------- graph closures ---------- */
+  function closure(startId, dir){ // dir: 'to' uses forward edges (descendants); 'from' uses reverse (ancestors)
+    var seen = {}, stack = [startId];
+    while(stack.length){
+      var id = stack.pop();
+      var node = byId[id]; if(!node) continue;
+      var nbrs = dir==="to" ? (node.to||[]) : (node.from||[]);
+      nbrs.forEach(function(x){ if(!seen[x]){ seen[x]=true; stack.push(x); } });
+    }
+    return seen;
+  }
+
+  var el = function(tag, cls, txt){ var e=document.createElement(tag); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e; };
+  var SVGNS = "http://www.w3.org/2000/svg";
+  function svgEl(tag){ return document.createElementNS(SVGNS, tag); }
+
+  /* hexagon glyph for action tag / person + leaf glyphs for focal values */
+  function glyph(type, well){
+    var s = svgEl("svg"); s.setAttribute("class","gly"); s.setAttribute("viewBox","0 0 24 24"); s.setAttribute("aria-hidden","true");
+    var p = svgEl("path");
+    if(type==="strategy"){ p.setAttribute("d","M7 3.2 L17 3.2 L22 12 L17 20.8 L7 20.8 L2 12 Z"); p.setAttribute("fill","var(--strategy-b)"); }
+    else if(type==="target" && !well){ p.setAttribute("d","M12 2a10 10 0 100 20 10 10 0 000-20zm0 4a6 6 0 110 12 6 6 0 010-12zm0 4a2 2 0 100 4 2 2 0 000-4z"); p.setAttribute("fill","var(--target-b)"); }
+    else if(type==="target" && well){ p.setAttribute("d","M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-4 0-8 2-8 6v2h16v-2c0-4-4-6-8-6z"); p.setAttribute("fill","var(--twell-b)"); }
+    else { return null; }
+    s.appendChild(p); return s;
+  }
+
+  /* ============================================================
+     RENDER: columns
+     ============================================================ */
+  var columnsEl = document.getElementById("columns");
+
+  COLS.forEach(function(c){
+    var col = el("div","col c"+c.key);
+    var h = el("h2", null);
+    var num = el("span","num", String(c.key+1)); num.setAttribute("aria-hidden","true");
+    h.appendChild(num);
+    h.appendChild(document.createTextNode(c.label));
+    if(c.key < 4){ var ch=el("span","chev","›"); ch.setAttribute("aria-hidden","true"); h.appendChild(ch); }
+    col.appendChild(h);
+    var stack = el("div","stack");
+    NODES.filter(function(n){return n.col===c.key;}).forEach(function(n){
+      var b = document.createElement("button");
+      b.className = "node "+n.type+(n.well?" well":"")+(n.done?" done":"");
+      b.id = "node-"+n.id;
+      b.setAttribute("data-id", n.id);
+      b.setAttribute("aria-expanded","false");
+      b.setAttribute("aria-controls","detail");
+      var tag = el("span","tag");
+      var g = glyph(n.type, n.well); if(g) tag.appendChild(g);
+      tag.appendChild(document.createTextNode(TYPE_LABEL[n.type] + (n.well?" · wellbeing": (n.type==="target"?" · biodiversity":""))));
+      var ttl = el("span","ttl", n.title);
+      b.appendChild(tag); b.appendChild(ttl);
+      if(n.done){ var df=el("span","doneflag"); df.innerHTML='<svg width="11" height="11" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"/></svg>completed'; b.appendChild(df); }
+      var meta = el("div","meta");
+      if(n.inds && n.inds.length){ meta.appendChild(el("span","pill", n.inds.length===1?"1 indicator":(n.inds.length+" indicators"))); }
+      if(n.objective){ meta.appendChild(el("span","pill obj","objective")); }
+      if(n.goal){ meta.appendChild(el("span","pill goal","goal")); }
+      if(n.assume){ meta.appendChild(el("span","pill warn","assumption")); }
+      if(n.safe){ meta.appendChild(el("span","pill safe","safeguard")); }
+      if(meta.childNodes.length) b.appendChild(meta);
+      b.addEventListener("click", function(){ select(n.id, true); });
+      b.addEventListener("mouseenter", function(){ if(!activeNodes) hoverEdges(n.id); });
+      b.addEventListener("mouseleave", function(){ if(!activeNodes) hoverEdges(null); });
+      stack.appendChild(b);
+    });
+    col.appendChild(stack);
+    columnsEl.appendChild(col);
+    if(c.key < 4){ var sa=el("div","stagearrow","↓"); sa.setAttribute("aria-hidden","true"); columnsEl.appendChild(sa); }
+  });
+
+  /* populate focus-strategy select */
+  var focusSel = document.getElementById("focus-select");
+  NODES.filter(function(n){return n.type==="strategy";}).forEach(function(n){
+    var o=document.createElement("option"); o.value=n.id; o.textContent=n.title; focusSel.appendChild(o);
+  });
+
+  /* ---------- Assumptions strip ---------- */
+  var ag = document.getElementById("assume-grid");
+  ASSUMPTIONS.forEach(function(a){
+    var c = document.createElement("button");
+    c.className = "assume-card"+(a.risk?" risk":"");
+    c.appendChild(el("b",null,a.risk?"Risk / false assumption":"Assumption"));
+    c.appendChild(document.createTextNode(a.text));
+    if(a.node){ c.addEventListener("click", function(){ select(a.node, true); }); }
+    ag.appendChild(c);
+  });
+
+  /* ---------- Safeguards band ---------- */
+  var sc = document.getElementById("safe-cols");
+  SAFE.forEach(function(s, i){
+    var d = el("div","safe-col");
+    var h4 = el("h4",null);
+    var nn = el("span","n", String(i+1)); nn.setAttribute("aria-hidden","true");
+    h4.appendChild(nn); h4.appendChild(document.createTextNode(s.h));
+    d.appendChild(h4);
+    d.appendChild(el("p","q",s.q));
+    var ul = el("ul");
+    s.items.forEach(function(it){ ul.appendChild(el("li",null,it)); });
+    d.appendChild(ul);
+    sc.appendChild(d);
+  });
+
+  /* ---------- Situation model ---------- */
+  (function(){
+    var grid = document.getElementById("cm-grid");
+    function cmCol(label, items, typ){
+      var col = el("div","col");
+      var h = el("h2",null); h.appendChild(document.createTextNode(label));
+      if(typ!=="target"){ var ch=el("span","chev","›"); ch.setAttribute("aria-hidden","true"); h.appendChild(ch); }
+      col.appendChild(h);
+      var stack = el("div","stack");
+      items.forEach(function(it){
+        var cls = typ==="driver"?"node output":(typ==="threat"?"node threat":("node target"+(it.well?" well":"")));
+        var card = el("div",cls);
+        var tag=el("span","tag");
+        var g = typ==="target"?glyph("target", it.well):null; if(g) tag.appendChild(g);
+        tag.appendChild(document.createTextNode(typ==="driver"?"Driver":(typ==="threat"?"Direct threat":("Focal value"+(it.well?" · wellbeing":" · biodiversity")))));
+        card.appendChild(tag);
+        card.appendChild(el("span","ttl", it.title));
+        if(it.note){ var m=el("div","meta"); var note=el("span",null,it.note); note.style.fontFamily="var(--sans)"; note.style.fontSize="12px"; note.style.color="var(--muted)"; note.style.marginTop="4px"; note.style.lineHeight="1.4"; m.appendChild(note); card.appendChild(m); }
+        stack.appendChild(card);
+      });
+      col.appendChild(stack);
+      return col;
+    }
+    grid.appendChild(cmCol("Drivers (governance and climate)", CM.drivers, "driver"));
+    grid.appendChild(cmCol("Direct threats", CM.threats, "threat"));
+    grid.appendChild(cmCol("Focal values", CM.targets, "target"));
+  })();
+
+  /* ============================================================
+     DETAIL PANEL
+     ============================================================ */
+  var detailEmpty = document.getElementById("detail-empty");
+  var detailContent = document.getElementById("detail-content");
+  var selectedId = null;
+
+  function typeColorVar(n){
+    if(n.type==="target") return n.well? "--twell-b":"--target-b";
+    return TYPE_COLORVAR[n.type] || "--ink";
+  }
+  function makeKV(label){ var w=el("div","kv"); w.appendChild(el("p","klabel",label)); return w; }
+  function phWrap(text){
+    var frag=document.createDocumentFragment();
+    frag.appendChild(document.createTextNode(text));
+    if(/PLACEHOLDER/.test(text)){ var b=el("span","ph-badge","placeholder"); frag.appendChild(b); }
+    return frag;
+  }
+  function jumpButton(id){
+    var n = byId[id]; if(!n) return null;
+    var j = document.createElement("button");
+    j.className="jump"; j.type="button"; j.textContent = n.title;
+    j.addEventListener("click", function(){ select(id, true); });
+    return j;
+  }
+
+  function renderDetail(n){
+    detailContent.innerHTML = "";
+    var head = el("div","dhead");
+    var left = document.createElement("div");
+    var dtag = el("div","dtag");
+    var g = glyph(n.type, n.well); if(g){ g.style.width="15px"; g.style.height="15px"; dtag.appendChild(g); }
+    dtag.appendChild(document.createTextNode(TYPE_LABEL[n.type] + (n.well?" · human wellbeing":(n.type==="target"?" · biodiversity":""))));
+    dtag.style.color = "var("+typeColorVar(n)+")";
+    left.appendChild(dtag);
+    left.appendChild(el("h3",null,n.title));
+    head.appendChild(left);
+    detailContent.appendChild(head);
+
+    var body = el("div","dbody");
+    if(n.summary){ var s=makeKV("What this is"); s.appendChild(el("p",null,n.summary)); body.appendChild(s); }
+
+    if(n.acts && n.acts.length){
+      var a=makeKV("Activities");
+      var ul=el("ul","acts"); n.acts.forEach(function(x){ ul.appendChild(el("li",null,x)); }); a.appendChild(ul);
+      body.appendChild(a);
+    }
+    if(n.magnitude){
+      var mg=makeKV("Threat magnitude");
+      var mb=el("div","box threat"); mb.appendChild(el("b",null,"Evidence")); mb.appendChild(phWrap(n.magnitude));
+      mg.appendChild(mb); body.appendChild(mg);
+    }
+    if(n.objective){
+      var ov=makeKV("Objective (attached to this result)");
+      var ob=el("div","box obj"); ob.appendChild(el("b",null,"Objective")); ob.appendChild(phWrap(n.objective));
+      ov.appendChild(ob); body.appendChild(ov);
+    }
+    if(n.goal){
+      var gv=makeKV("Goal (attached to this focal value)");
+      var gb=el("div","box goal"); gb.appendChild(el("b",null,"Goal")); gb.appendChild(phWrap(n.goal));
+      gv.appendChild(gb); body.appendChild(gv);
+    }
+    if(n.inds && n.inds.length){
+      var iv=makeKV(n.inds.length===1?"Indicator":"Indicators");
+      n.inds.forEach(function(ind){
+        var box=el("div","ind");
+        box.appendChild(el("div","in",ind.n));
+        var tg=el("div","tg"+(/PLACEHOLDER/.test(ind.t)?" ph":"")); tg.appendChild(phWrap(ind.t));
+        box.appendChild(tg);
+        iv.appendChild(box);
+      });
+      body.appendChild(iv);
+    }
+    if(n.assume){
+      var av=makeKV("Assumption on this link");
+      var ab=el("div","box assume"); ab.appendChild(el("b",null,"Leap of faith")); ab.appendChild(document.createTextNode(n.assume));
+      av.appendChild(ab); body.appendChild(av);
+    }
+    if(n.safe){
+      var sv=makeKV("Safeguard attached");
+      var sb=el("div","box safe"); sb.appendChild(el("b",null,"FAIRER / GEDSI")); sb.appendChild(document.createTextNode(n.safe));
+      sv.appendChild(sb); body.appendChild(sv);
+    }
+    if(n.note){
+      var nv=el("div","box note"); nv.appendChild(el("b",null,"Note")); nv.appendChild(document.createTextNode(n.note));
+      body.appendChild(nv);
+    }
+    var lr = el("div","links-row");
+    if(n.from && n.from.length){
+      var lf=el("div","lk"); lf.appendChild(el("span","lkh","Follows from"));
+      n.from.forEach(function(id){ var j=jumpButton(id); if(j){ lf.appendChild(j); } });
+      lr.appendChild(lf);
+    }
+    if(n.to && n.to.length){
+      var lt=el("div","lk"); lt.appendChild(el("span","lkh","Leads to"));
+      n.to.forEach(function(id){ var j=jumpButton(id); if(j){ lt.appendChild(j); } });
+      lr.appendChild(lt);
+    }
+    if(lr.childNodes.length){ var lv=makeKV("Causal links"); lv.appendChild(lr); body.appendChild(lv); }
+    detailContent.appendChild(body);
+  }
+
+  /* ============================================================
+     HIGHLIGHT STATE + SELECTION
+     activeNodes: Set of ids to keep bright (null = all bright / rest state)
+     activeEdges: Set of "a->b" keys to emphasise
+     ============================================================ */
+  var activeNodes = null;   // null means "no focus"
+  var activeEdges = null;
+  var primaryId = null;     // the clicked/selected node (gets .sel)
+
+  function setActive(nodeSet, edgeSet, primary){
+    activeNodes = nodeSet; activeEdges = edgeSet; primaryId = primary||null;
+    NODES.forEach(function(m){
+      var b=document.getElementById("node-"+m.id); if(!b) return;
+      var inSet = !activeNodes || activeNodes[m.id];
+      b.classList.toggle("dim", !!activeNodes && !inSet);
+      b.classList.toggle("trace", !!activeNodes && inSet && m.id!==primaryId);
+      b.classList.toggle("sel", m.id===primaryId);
+      b.setAttribute("aria-expanded", m.id===primaryId?"true":"false");
+    });
+    drawLinks();
+  }
+
+  function traceSet(id){
+    var up = closure(id,"from");   // ancestors
+    var down = closure(id,"to");   // descendants
+    var nodes = {}; nodes[id]=true;
+    Object.keys(up).forEach(function(k){ nodes[k]=true; });
+    Object.keys(down).forEach(function(k){ nodes[k]=true; });
+    // edges: within-up (a,b both reach id) OR within-down (both reachable from id)
+    var upSelf = Object.assign({}, up); upSelf[id]=true;
+    var downSelf = Object.assign({}, down); downSelf[id]=true;
+    var edges = {};
+    NODES.forEach(function(n){
+      (n.to||[]).forEach(function(t){
+        if((upSelf[n.id] && upSelf[t]) || (downSelf[n.id] && downSelf[t])) edges[n.id+"->"+t]=true;
+      });
+    });
+    return {nodes:nodes, edges:edges};
+  }
+
+  function select(id, scroll){
+    var n = byId[id]; if(!n) return;
+    if(tourOn) endTour();
+    selectedId = id;
+    // clear any type/strategy filter visual pressed state
+    clearFilterButtons();
+    focusSel.value = "";
+    completedBtn.setAttribute("aria-pressed","false");
+    var t = traceSet(id);
+    setActive(t.nodes, t.edges, id);
+    detailEmpty.hidden = true;
+    detailContent.hidden = false;
+    renderDetail(n);
+    var b=document.getElementById("node-"+id);
+    if(b){ b.classList.remove("pulse"); void b.offsetWidth; b.classList.add("pulse"); }
+    if(scroll){ safeScroll(document.getElementById("detail"), "nearest"); }
+  }
+
+  function resetView(){
+    if(tourOn) endTour();
+    selectedId=null; primaryId=null;
+    clearFilterButtons(); focusSel.value=""; completedBtn.setAttribute("aria-pressed","false");
+    setActive(null,null,null);
+    detailContent.hidden = true; detailEmpty.hidden = false;
+  }
+
+  function prefersReduced(){ return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches; }
+  function safeScroll(node, block){ if(node && typeof node.scrollIntoView==="function"){ node.scrollIntoView({behavior:prefersReduced()?"auto":"smooth", block:block||"nearest"}); } }
+
+  /* hover: emphasise immediate edges of a node (rest state only) */
+  var hoverId=null;
+  function hoverEdges(id){
+    hoverId=id; drawLinks();
+  }
+
+  /* ============================================================
+     CONNECTOR ENGINE
+     ============================================================ */
+  var svg = document.getElementById("links");
+  var svgOver = document.getElementById("links-over");
+  var flowOn = true;
+
+  /* Resolve CSS custom properties to concrete hex once. var() is unreliable as an
+     SVG *presentation attribute* value, so all stroke/fill on paths and markers use these. */
+  var _cs = getComputedStyle(document.documentElement);
+  function cv(name){ return (_cs.getPropertyValue(name)||"").trim() || "#8A8062"; }
+  var COLOR = {
+    strategy:cv("--strategy-b"), output:cv("--output-b"), inter:cv("--inter-b"),
+    threat:cv("--threat-b"), target:cv("--target-b"), twell:cv("--twell-b"),
+    neutral:cv("--link-strong"), link:cv("--link"), dim:"#CBD0D6", casing:"#FFFFFF",
+    assumeF:cv("--assume-f"), assumeB:cv("--assume-b"), assumeT:cv("--assume-t")
+  };
+  function edgeColor(n){ return n.type==="target" ? (n.well?COLOR.twell:COLOR.target) : (COLOR[n.type]||COLOR.neutral); }
+
+  function ensureDefs(){
+    var defs = svgEl("defs");
+    var colors = {neutral:COLOR.neutral, strategy:COLOR.strategy, output:COLOR.output,
+      inter:COLOR.inter, threat:COLOR.threat, target:COLOR.target, twell:COLOR.twell, dim:COLOR.dim};
+    Object.keys(colors).forEach(function(k){
+      var m = svgEl("marker");
+      m.setAttribute("id","arrow-"+k);
+      m.setAttribute("viewBox","0 0 10 10"); m.setAttribute("refX","9"); m.setAttribute("refY","5");
+      m.setAttribute("markerWidth","4.4"); m.setAttribute("markerHeight","4.4");
+      m.setAttribute("orient","auto-start-reverse");
+      var p = svgEl("path"); p.setAttribute("d","M1 1 L9 5 L1 9 Z"); p.setAttribute("fill",colors[k]);
+      m.appendChild(p); defs.appendChild(m);
+    });
+    svg.appendChild(defs);
+  }
+
+  function sourceColorKey(n){
+    if(n.type==="target") return n.well?"twell":"target";
+    return n.type;
+  }
+
+  function drawLinks(){
+    if(!svg) return;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    if(svgOver){ while(svgOver.firstChild) svgOver.removeChild(svgOver.firstChild); }
+    ensureDefs();
+    var view = document.getElementById("view-chain");
+    if(view.hidden) return;
+    if(window.innerWidth <= 980) return;
+
+    var board = svg.parentNode;
+    var brect = board.getBoundingClientRect();
+    svg.setAttribute("viewBox","0 0 "+brect.width+" "+brect.height);
+    svg.setAttribute("width", brect.width); svg.setAttribute("height", brect.height);
+    if(svgOver){ svgOver.setAttribute("viewBox","0 0 "+brect.width+" "+brect.height); svgOver.setAttribute("width", brect.width); svgOver.setAttribute("height", brect.height); }
+
+    // measure nodes
+    var R = {};
+    NODES.forEach(function(n){
+      var fe=document.getElementById("node-"+n.id); if(!fe) return;
+      var r=fe.getBoundingClientRect();
+      R[n.id]={left:r.left-brect.left, right:r.right-brect.left, top:r.top-brect.top, h:r.height, cy:r.top-brect.top+r.height/2};
+    });
+
+    // per-node ordered out/in lists (for anchor distribution)
+    var outOrder={}, inOrder={};
+    NODES.forEach(function(n){
+      var outs=(n.to||[]).filter(function(t){return R[t];});
+      outs.sort(function(a,b){ return R[a].cy - R[b].cy; });
+      outOrder[n.id]=outs;
+    });
+    NODES.forEach(function(n){
+      var ins=(n.from||[]).filter(function(f){return R[f];});
+      ins.sort(function(a,b){ return R[a].cy - R[b].cy; });
+      inOrder[n.id]=ins;
+    });
+
+    var hoverEdgeKeys={};
+    if(hoverId && !activeNodes){
+      (byId[hoverId].to||[]).forEach(function(t){ hoverEdgeKeys[hoverId+"->"+t]=true; });
+      (byId[hoverId].from||[]).forEach(function(f){ hoverEdgeKeys[f+"->"+hoverId]=true; });
+    }
+
+    var assumeGroup = svgEl("g"); assumeGroup.setAttribute("class","assume-markers");
+
+    NODES.forEach(function(n){
+      if(!R[n.id]) return;
+      var a=R[n.id];
+      (n.to||[]).forEach(function(tid){
+        if(!R[tid]) return;
+        var b=R[tid], key=n.id+"->"+tid, sameCol=(byId[tid].col===n.col);
+        var d, x1,y1,x2,y2;
+        if(sameCol){
+          x1=a.right; x2=b.right;
+          var oi=outOrder[n.id].indexOf(tid), oc=outOrder[n.id].length;
+          y1=a.top + a.h*((oi+1)/(oc+1));
+          var ii=inOrder[tid].indexOf(n.id), ic=inOrder[tid].length;
+          y2=b.top + b.h*((ii+1)/(ic+1));
+          var G=Math.max(30, Math.abs(y2-y1)*0.28);
+          d="M "+x1+" "+y1+" C "+(x1+G)+" "+y1+" "+(x2+G)+" "+y2+" "+x2+" "+y2;
+        } else {
+          x1=a.right; x2=b.left-3;
+          var oi2=outOrder[n.id].indexOf(tid), oc2=outOrder[n.id].length;
+          y1=a.top + a.h*((oi2+1)/(oc2+1));
+          var ii2=inOrder[tid].indexOf(n.id), ic2=inOrder[tid].length;
+          y2=b.top + b.h*((ii2+1)/(ic2+1));
+          var dx=Math.max(34,(x2-x1)*0.42);
+          d="M "+x1+" "+y1+" C "+(x1+dx)+" "+y1+" "+(x2-dx)+" "+y2+" "+x2+" "+y2;
+        }
+
+        var state; // 'active' | 'dim' | 'rest' | 'hover' | 'hoverdim'
+        if(activeNodes){ state = activeEdges && activeEdges[key] ? "active" : "dim"; }
+        else if(hoverId){ state = hoverEdgeKeys[key] ? "hover" : "hoverdim"; }
+        else { state="rest"; }
+
+        var ckey = sourceColorKey(n);
+        var bold = (state==="active" || state==="hover");
+
+        // white casing beneath prominent links so they stay legible over cards and where links cross
+        if(bold || state==="rest"){
+          var cas=svgEl("path");
+          cas.setAttribute("d",d); cas.setAttribute("fill","none"); cas.setAttribute("stroke-linecap","butt");
+          cas.setAttribute("stroke", COLOR.casing);
+          cas.setAttribute("stroke-width", state==="rest" ? "3.2" : "6");
+          svg.appendChild(cas);
+        }
+
+        var path=svgEl("path");
+        path.setAttribute("d",d); path.setAttribute("fill","none"); path.setAttribute("stroke-linecap","butt");
+        if(state==="active"){
+          path.setAttribute("stroke", edgeColor(n));
+          path.setAttribute("stroke-width","3.2"); path.setAttribute("opacity","1");
+          path.setAttribute("marker-end","url(#arrow-"+ckey+")");
+          if(flowOn && !prefersReduced()){ path.setAttribute("class","flow"); path.style.strokeDasharray="8 7"; path.style.animation="flow 1s linear infinite"; }
+        } else if(state==="hover"){
+          path.setAttribute("stroke", edgeColor(n));
+          path.setAttribute("stroke-width","3.2"); path.setAttribute("opacity","1");
+          path.setAttribute("marker-end","url(#arrow-"+ckey+")");
+        } else if(state==="dim"){
+          path.setAttribute("stroke", COLOR.dim); path.setAttribute("stroke-width","1.3"); path.setAttribute("opacity","0.5");
+          path.setAttribute("marker-end","url(#arrow-dim)");
+        } else if(state==="hoverdim"){
+          path.setAttribute("stroke", COLOR.dim); path.setAttribute("stroke-width","1.2"); path.setAttribute("opacity","0.22");
+          path.setAttribute("marker-end","url(#arrow-dim)");
+        } else { // rest: calm, light network — hover a box to light up its own links
+          path.setAttribute("stroke", COLOR.neutral);
+          path.setAttribute("stroke-width","1.5"); path.setAttribute("opacity","0.4");
+          path.setAttribute("marker-end","url(#arrow-neutral)");
+        }
+        svg.appendChild(path);
+      });
+
+      /* assumption marker on the source node's outgoing link */
+      if(n.assume && R[n.id] && (n.to||[]).length){
+        var mx=a.right+13, my=a.cy;
+        var vis = !activeNodes || activeNodes[n.id];
+        var gm=svgEl("g"); gm.setAttribute("class","hit"); gm.style.cursor="pointer"; gm.setAttribute("tabindex","-1");
+        gm.setAttribute("opacity", vis? "1":"0.16");
+        var halo=svgEl("path");
+        halo.setAttribute("d","M "+mx+" "+(my-11)+" L "+(mx+11)+" "+my+" L "+mx+" "+(my+11)+" L "+(mx-11)+" "+my+" Z");
+        halo.setAttribute("fill", "#FFFFFF"); halo.setAttribute("stroke","#FFFFFF"); halo.setAttribute("stroke-width","2");
+        gm.appendChild(halo);
+        var dia=svgEl("path");
+        dia.setAttribute("d","M "+mx+" "+(my-9.5)+" L "+(mx+9.5)+" "+my+" L "+mx+" "+(my+9.5)+" L "+(mx-9.5)+" "+my+" Z");
+        dia.setAttribute("fill", "#FFFFFF"); dia.setAttribute("stroke", COLOR.assumeB);
+        dia.setAttribute("stroke-width","1.7"); dia.setAttribute("stroke-dasharray","2.6 2");
+        var q=svgEl("text"); q.setAttribute("x",mx); q.setAttribute("y",my+3.7); q.setAttribute("text-anchor","middle");
+        q.setAttribute("font-size","11"); q.setAttribute("font-family","'IBM Plex Sans',system-ui,sans-serif"); q.setAttribute("font-weight","700");
+        q.setAttribute("fill", COLOR.assumeT); q.textContent="?";
+        var ttl=svgEl("title"); ttl.textContent="Assumption on this link: "+n.assume;
+        gm.appendChild(dia); gm.appendChild(q); gm.appendChild(ttl);
+        (function(nid){ gm.addEventListener("click", function(){ select(nid, true); }); })(n.id);
+        assumeGroup.appendChild(gm);
+      }
+    });
+    (svgOver||svg).appendChild(assumeGroup);
+  }
+
+  var rafId=null;
+  function scheduleDraw(){ if(rafId) cancelAnimationFrame(rafId); rafId=requestAnimationFrame(drawLinks); }
+  window.addEventListener("resize", scheduleDraw);
+  window.addEventListener("load", scheduleDraw);
+
+  /* flow keyframes injected (kept out of static CSS so reduced-motion fully removes it) */
+  (function(){ var st=document.createElement("style"); st.textContent="@keyframes flow{to{stroke-dashoffset:-15}}"; document.head.appendChild(st); })();
+
+  /* ============================================================
+     FILTERS & FOCUS
+     ============================================================ */
+  var legend=document.getElementById("legend");
+  var filterButtons = Array.prototype.slice.call(legend.querySelectorAll(".lg[data-ftype]"));
+  var completedBtn=document.getElementById("btn-completed");
+
+  function clearFilterButtons(){ filterButtons.forEach(function(b){ b.setAttribute("aria-pressed","false"); }); }
+
+  function isolateType(type){
+    var nodes={};
+    NODES.forEach(function(n){ if(n.type===type) nodes[n.id]=true; });
+    // include edges among that type (usually few) plus keep others dim
+    var edges={};
+    NODES.forEach(function(n){ if(n.type!==type) return; (n.to||[]).forEach(function(t){ if(byId[t] && byId[t].type===type) edges[n.id+"->"+t]=true; }); });
+    setActive(nodes, edges, null);
+    detailContent.hidden=true; detailEmpty.hidden=false;
+  }
+
+  filterButtons.forEach(function(b){
+    b.addEventListener("click", function(){
+      var type=b.getAttribute("data-ftype");
+      var wasOn=b.getAttribute("aria-pressed")==="true";
+      clearFilterButtons(); focusSel.value=""; completedBtn.setAttribute("aria-pressed","false");
+      if(wasOn){ resetView(); return; }
+      b.setAttribute("aria-pressed","true");
+      if(tourOn) endTour();
+      isolateType(type);
+    });
+  });
+
+  focusSel.addEventListener("change", function(){
+    clearFilterButtons(); completedBtn.setAttribute("aria-pressed","false");
+    var id=focusSel.value;
+    if(!id){ resetView(); return; }
+    if(tourOn) endTour();
+    var down=closure(id,"to"); var nodes={}; nodes[id]=true;
+    Object.keys(down).forEach(function(k){ nodes[k]=true; });
+    var edges={};
+    NODES.forEach(function(n){ if(!nodes[n.id]) return; (n.to||[]).forEach(function(t){ if(nodes[t]) edges[n.id+"->"+t]=true; }); });
+    setActive(nodes, edges, id);
+    renderDetail(byId[id]); detailEmpty.hidden=true; detailContent.hidden=false;
+  });
+
+  completedBtn.addEventListener("click", function(){
+    var wasOn=completedBtn.getAttribute("aria-pressed")==="true";
+    clearFilterButtons(); focusSel.value="";
+    if(wasOn){ resetView(); return; }
+    completedBtn.setAttribute("aria-pressed","true");
+    if(tourOn) endTour();
+    var nodes={}; NODES.forEach(function(n){ if(n.done) nodes[n.id]=true; });
+    setActive(nodes, {}, null);
+    detailContent.hidden=true; detailEmpty.hidden=false;
+  });
+
+  document.getElementById("btn-reset").addEventListener("click", resetView);
+
+  var flowChk=document.getElementById("chk-flow");
+  flowChk.addEventListener("change", function(){ flowOn=flowChk.checked; drawLinks(); });
+
+  /* ============================================================
+     GUIDED TOUR
+     ============================================================ */
+  var TOUR = [
+    {title:"The problem", nodes:["tg_ele","tg_well"], scroll:"top",
+     cap:"Farmers grow elephant-attractive crops; cassava loses a mean <b>42%</b> to raiding and compensation covers about <b>10%</b>. This chain sets out how elephant-friendly agroforestry is meant to change that, and ends at two focal values: a stable elephant population and secure, equitable wellbeing."},
+    {title:"Start with an action", nodes:["s_live"], primary:"s_live",
+     cap:"An <b>action</b> is a set of activities with a common focus. Here: build farmer capacity to adopt elephant-resilient agroforestry livelihoods. A chain always begins with an action (the gold hexagon). CS v5 renamed this element from &ldquo;strategy&rdquo; to &ldquo;action.&rdquo;"},
+    {title:"Actions deliver outputs", nodes:["s_live","o_needs","o_suit"], primary:"o_needs",
+     cap:"The action delivers <b>outputs</b>: community focus groups establish needs and barriers (369 farmers, 2024), and soil and climate work identifies suitable crops. Both are marked completed."},
+    {title:"The first leap of faith", nodes:["s_live","o_needs","i_will"], primary:"i_will",
+     cap:"Diamonds on the links are <b>assumptions</b>. The chain assumes communities are willing to shift from current crops and mitigation. FPIC and positionality checks test and protect that assumption rather than take it for granted."},
+    {title:"Adoption changes the land", nodes:["o_suit","o_bm","s_pol","i_adopt"], primary:"i_adopt",
+     cap:"An <b>intermediate result</b>: farmers convert monocrops to drought- and elephant-resistant systems. This is where the land use actually changes, so it carries an objective and a distribution safeguard for renters."},
+    {title:"Threat reduction", nodes:["i_will","i_adopt","i_land","t_crop"], primary:"t_crop",
+     cap:"Reduced adoption of attractive crops leads to a <b>threat reduction</b>: fewer and smaller raids on farms. Open Standards attach an <b>objective</b> here (the purple diamond in the legend), because reducing the threat is the pivot of the chain."},
+    {title:"From damage to killing", nodes:["t_crop","i_adopt","t_aggr","t_retal"], primary:"t_retal",
+     cap:"With losses down and non-violent deterrence coached, aggressive mitigation falls, and so does <b>retaliatory killing of elephants</b>. These are the behaviours that most directly threaten the population."},
+    {title:"Conservation focal value", nodes:["t_move","t_retal","t_comp","tg_ele"], primary:"tg_ele",
+     cap:"The biodiversity <b>focal value</b>: a stable Asian elephant population in sWEFCOM. A <b>goal</b> attaches to the focal value. Its standing assumption is that enough habitat, water and dispersal space remain to support the population."},
+    {title:"The wellbeing pathway", nodes:["i_qual","t_income","t_crop","tg_well"], primary:"tg_well",
+     cap:"A parallel pathway reaches the human-wellbeing <b>focal value</b>. Higher-value production offsets losses. The load-bearing assumption: a revenue stream unaffected by raiding decouples wellbeing from conflict, giving a basis for coexistence."},
+    {title:"The enabling condition", nodes:["tg_well"], scroll:"safe",
+     cap:"Whether the chain delivers <b>equitably</b>, not just on average, depends on social safeguards: recognition (whose costs are seen), procedure (is it fair), and distribution (are benefits shared). These sit beneath the chain as an enabling condition."},
+    {title:"That is the theory of change", nodes:null, scroll:"top",
+     cap:"Action &rarr; result &rarr; threat reduction &rarr; focal value, with assumptions on the links and safeguards beneath. Now explore any node yourself for its activities, indicators, objective or goal, assumption, and safeguard."}
+  ];
+  var tourOn=false, tourIdx=0;
+  var tourEl=document.getElementById("tour"),
+      tBadge=document.getElementById("tour-badge"), tTitle=document.getElementById("tour-title"),
+      tCap=document.getElementById("tour-cap"), tDots=document.getElementById("tour-dots"),
+      tPrev=document.getElementById("tour-prev"), tNext=document.getElementById("tour-next");
+
+  (function buildDots(){
+    TOUR.forEach(function(_,i){
+      var d=document.createElement("button"); d.className="dot"; d.type="button";
+      d.setAttribute("role","tab"); d.setAttribute("aria-label","Go to step "+(i+1));
+      d.addEventListener("click", function(){ tourIdx=i; renderTour(); });
+      tDots.appendChild(d);
+    });
+  })();
+
+  function startTour(){
+    activate("chain");
+    tourOn=true; tourIdx=0; tourEl.classList.add("on"); renderTour();
+    tNext.focus();
+  }
+  function endTour(){
+    tourOn=false; tourEl.classList.remove("on");
+    setActive(null,null,null); detailContent.hidden=true; detailEmpty.hidden=false;
+  }
+  function renderTour(){
+    var step=TOUR[tourIdx];
+    tBadge.textContent="Step "+(tourIdx+1)+" / "+TOUR.length;
+    tTitle.textContent=step.title;
+    tCap.innerHTML=step.cap;
+    Array.prototype.forEach.call(tDots.children, function(d,i){ d.setAttribute("aria-current", i===tourIdx?"true":"false"); });
+    tPrev.disabled = tourIdx===0;
+    tNext.textContent = tourIdx===TOUR.length-1 ? "Finish" : "Next";
+
+    if(step.nodes){
+      var nodes={}; step.nodes.forEach(function(id){ nodes[id]=true; });
+      var edges={};
+      NODES.forEach(function(n){ if(!nodes[n.id]) return; (n.to||[]).forEach(function(t){ if(nodes[t]) edges[n.id+"->"+t]=true; }); });
+      setActive(nodes, edges, step.primary||null);
+      if(step.primary){ renderDetail(byId[step.primary]); detailEmpty.hidden=true; detailContent.hidden=false; }
+      else { detailContent.hidden=true; detailEmpty.hidden=false; }
+    } else {
+      setActive(null,null,null); detailContent.hidden=true; detailEmpty.hidden=false;
+    }
+    // scroll targets (guarded: scrollIntoView is absent in some non-browser environments)
+    if(step.scroll==="top"){ safeScroll(document.querySelector(".board"), "start"); }
+    else if(step.scroll==="safe"){ safeScroll(document.querySelector(".safe-band"), "center"); }
+    else if(step.primary){ var b=document.getElementById("node-"+step.primary); if(b){ b.classList.remove("pulse"); void b.offsetWidth; b.classList.add("pulse"); } }
+  }
+  document.getElementById("btn-tour").addEventListener("click", function(){ tourOn?endTour():startTour(); });
+  document.getElementById("tour-close").addEventListener("click", endTour);
+  tPrev.addEventListener("click", function(){ if(tourIdx>0){ tourIdx--; renderTour(); } });
+  tNext.addEventListener("click", function(){ if(tourIdx<TOUR.length-1){ tourIdx++; renderTour(); } else { endTour(); } });
+  document.addEventListener("keydown", function(e){
+    if(!tourOn) return;
+    if(e.key==="Escape"){ endTour(); }
+    else if(e.key==="ArrowRight"){ if(tourIdx<TOUR.length-1){ tourIdx++; renderTour(); } }
+    else if(e.key==="ArrowLeft"){ if(tourIdx>0){ tourIdx--; renderTour(); } }
+  });
+
+  /* ============================================================
+     KEYBOARD NAV ACROSS NODES
+     ============================================================ */
+  columnsEl.addEventListener("keydown", function(e){
+    var t=e.target;
+    if(!t.classList || !t.classList.contains("node")) return;
+    var keys=["ArrowRight","ArrowLeft","ArrowDown","ArrowUp"];
+    if(keys.indexOf(e.key)<0) return;
+    e.preventDefault();
+    var cur=byId[t.getAttribute("data-id")], target=null;
+    if(e.key==="ArrowDown"||e.key==="ArrowUp"){
+      var sameCol=NODES.filter(function(n){return n.col===cur.col;});
+      var idx=sameCol.indexOf(cur), ni=idx+(e.key==="ArrowDown"?1:-1);
+      if(ni>=0 && ni<sameCol.length) target=sameCol[ni];
+    } else {
+      var dir=e.key==="ArrowRight"?1:-1, nextCol=cur.col+dir;
+      var pool=NODES.filter(function(n){return n.col===nextCol;});
+      if(pool.length){
+        var cr=document.getElementById("node-"+cur.id).getBoundingClientRect(), best=null, bd=Infinity;
+        pool.forEach(function(n){ var r=document.getElementById("node-"+n.id).getBoundingClientRect(); var dd=Math.abs((r.top+r.height/2)-(cr.top+cr.height/2)); if(dd<bd){bd=dd;best=n;} });
+        target=best;
+      }
+    }
+    if(target){ var b=document.getElementById("node-"+target.id); if(b) b.focus(); }
+  });
+
+  /* ============================================================
+     TABS
+     ============================================================ */
+  var tabChain=document.getElementById("tab-chain"), tabModel=document.getElementById("tab-model");
+  var viewChain=document.getElementById("view-chain"), viewModel=document.getElementById("view-model");
+  function activate(which){
+    var chain=which==="chain";
+    tabChain.setAttribute("aria-selected", chain?"true":"false");
+    tabModel.setAttribute("aria-selected", chain?"false":"true");
+    tabChain.tabIndex=chain?0:-1; tabModel.tabIndex=chain?-1:0;
+    viewChain.hidden=!chain; viewModel.hidden=chain;
+    document.getElementById("controls").style.display = chain? "flex":"none";
+    document.getElementById("legend").style.display = chain? "flex":"none";
+    if(chain) scheduleDraw(); else if(tourOn) endTour();
+  }
+  tabChain.addEventListener("click", function(){ activate("chain"); });
+  tabModel.addEventListener("click", function(){ activate("model"); });
+  [tabChain,tabModel].forEach(function(tb){
+    tb.addEventListener("keydown", function(e){
+      if(e.key==="ArrowRight"||e.key==="ArrowLeft"){
+        e.preventDefault();
+        var toModel=e.key==="ArrowRight"; activate(toModel?"model":"chain"); (toModel?tabModel:tabChain).focus();
+      }
+    });
+  });
+
+  /* ============================================================
+     PRINT APPENDIX
+     ============================================================ */
+  (function(){
+    var pa=document.getElementById("pa-list");
+    NODES.forEach(function(n){
+      var d=el("div","pa-node");
+      d.appendChild(el("h4",null, TYPE_LABEL[n.type]+(n.well?" (human wellbeing)":(n.type==="target"?" (biodiversity)":""))+": "+n.title));
+      if(n.summary) d.appendChild(el("p",null,n.summary));
+      if(n.magnitude) d.appendChild(el("p",null,"Threat magnitude: "+n.magnitude));
+      if(n.objective) d.appendChild(el("p",null,"Objective: "+n.objective));
+      if(n.goal) d.appendChild(el("p",null,"Goal: "+n.goal));
+      if(n.acts && n.acts.length){ var ul=el("ul"); n.acts.forEach(function(x){ul.appendChild(el("li",null,x));}); d.appendChild(ul); }
+      if(n.inds && n.inds.length){ n.inds.forEach(function(ind){ d.appendChild(el("p",null,"Indicator: "+ind.n+". Target: "+ind.t)); }); }
+      if(n.assume) d.appendChild(el("p",null,"Assumption: "+n.assume));
+      if(n.safe) d.appendChild(el("p",null,"Safeguard: "+n.safe));
+      if(n.note) d.appendChild(el("p",null,"Note: "+n.note));
+      var links=[]; (n.to||[]).forEach(function(id){ if(byId[id]) links.push(byId[id].title); });
+      if(links.length) d.appendChild(el("p",null,"Leads to: "+links.join("; ")));
+      pa.appendChild(d);
+    });
+  })();
+
+  /* init */
+  scheduleDraw();
+  setTimeout(scheduleDraw, 220);
+})();
+</script>
+</body>
+</html>
