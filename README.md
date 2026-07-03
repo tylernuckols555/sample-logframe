@@ -4,6 +4,6 @@ An interactive results chain (theory of change) for a human-elephant coexistence
 
 Hover any box to light up its direct links; select a box to trace the full causal chain and open its detail: activities, indicators, the assumption on its link, and the attached safeguard. A guided tour walks the theory of change one link at a time.
 
-**Live:** https://USERNAME.github.io/sample-logframe/
+**Live:** https://tylernuckols555.github.io/sample-logframe/
 
 Built by Tyler Nuckols, Ground Truth Advisory (social safeguards and MEL design). Programme: ZSL Thailand, Darwin Initiative.
